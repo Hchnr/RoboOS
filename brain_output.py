@@ -31,3 +31,30 @@ ChatCompletion(
     prompt_logprobs=None, 
     kv_transfer_params=None
 )
+
+
+```json
+{
+    "reasoning_explanation": "The given task involves multiple steps that require navigation and manipulation of objects. To ensure that the task is broken down into manageable sub-tasks, we need to consider the sequence of actions and the capabilities of the robot. Each sub-task should be complex enough to involve multiple steps but not so complex that it requires coordination between multiple robots. Here’s the breakdown of the task into sub-tasks, ensuring that each sub-task can be executed by a single robot using its available tools.",
+    "subtask_list": [
+        {"robot_name": "demo_robot", "subtask": "Navigate to kitchen table", "subtask_order": 1},
+        {"robot_name": "demo_robot", "subtask": "Grasp apple from kitchen table", "subtask_order": 2},
+        {"robot_name": "demo_robot", "subtask": "Navigate to serving table", "subtask_order": 3},
+        {"robot_name": "demo_robot", "subtask": "Place apple on serving table", "subtask_order": 4},
+        {"robot_name": "demo_robot", "subtask": "Navigate back to kitchen table", "subtask_order": 5},
+        {"robot_name": "demo_robot", "subtask": "Grasp bowl from serving table", "subtask_order": 6},
+        {"robot_name": "demo_robot", "subtask": "Navigate back to kitchen table", "subtask_order": 5},
+        {"robot_name": "demo_robot", "subtask": "Place bowl on kitchen table", "subtask_order": 7}
+    ]
+}
+```
+
+### Reasoning Explanation:
+1. **Navigate to Kitchen Table (Sub-task 1)**: This involves moving the robot to the kitchen table. Given the robot\'s `navigate_to_target` capability, this is a feasible single-step task.
+2. **Grasp Apple from Kitchen Table (Sub-task 2)**: Once at the kitchen table, the robot needs to pick up the apple. Using the `grasp_object` function, this is another single-step task.
+3. **Navigate to Serving Table (Sub-task 3)**: After picking up the apple, the robot needs to move to the serving table. Again, this is a single-step task using the `navigate_to_target` function.
+4. **Place Apple on Serving Table (Sub-task 4)**: At the serving table, the robot places the apple. This is a single-step task using the `place_to_affordance` function.
+5. **Navigate Back to Kitchen Table (Sub-tasks 5 and 7)**: The robot needs to return to the kitchen table twice. Both these tasks are single-step tasks using the `navigate_to_target` function.
+6. **Grasp Bowl from Serving Table (Sub-task 6)**: Finally, the robot picks up the bowl from the serving table. This is a single-step task using the `grasp_object` function.
+
+Each sub-task is designed to be complex enough to involve multiple steps but not so complex that it requires coordination between multiple robots. The robot\'s tools (`navigate_to_target`, `grasp_object`, and `place_to_affordance`) are sufficient to perform each sub-task independently.
